@@ -40,5 +40,6 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
 
             return Ok(team);
         }
+
     }
 }

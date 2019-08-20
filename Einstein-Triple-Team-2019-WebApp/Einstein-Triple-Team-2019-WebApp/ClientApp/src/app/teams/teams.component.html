@@ -1,0 +1,17 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Mamber 1</th>
+      <th>Mamber 2</th>
+      <th>Sex multiplier</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team of teams">
+      <td>{{ team.Name }}</td>
+      <td>{{ team.Member1 }}</td>
+      <td>{{ team.Member2 }}</td>
+      <td>{{ team.SexMultiplier }}</td>
+    </tr>
+</table>

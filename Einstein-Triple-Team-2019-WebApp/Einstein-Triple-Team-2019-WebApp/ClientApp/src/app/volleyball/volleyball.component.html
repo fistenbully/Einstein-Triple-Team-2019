@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>Platz</th>
+      <th>Team</th>
+      <th>Spiele</th>
+      <th>Siege</th>
+      <th>Niederlagen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team of leaderboard; let ndx = index">
+      <td>{{ndx+1}}</td>
+      <td>{{ team.team }}</td>
+      <td>{{ team.games }}</td>
+      <td>{{ team.wins }}</td>
+      <td>{{ team.lose }}</td>
+    </tr>
+</table>

@@ -1,0 +1,21 @@
+body {
+  min-width: '80%'
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/*.mat-column-name {
+  width: 10% !important;
+}
+
+.mat-column-member1 {
+  width: 10% !important;
+}
+
+.mat-column-member1 {
+  width: 10% !important;
+}*/
+

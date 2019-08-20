@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './teams.component.html',
+  styleUrls: ['./teams.component.css']
 })
 export class TeamsComponent implements AfterViewInit {
-
+  displayedColumns: string[] = ['name', 'member1', 'member2'];
 
   teams: Array<Team>;
 

@@ -1,19 +1,32 @@
-<table>
-  <thead>
-    <tr>
-      <th>Platz</th>
-      <th>Team</th>
-      <th>Spiele</th>
-      <th>Siege</th>
-      <th>Niederlagen</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let team of leaderboard; let ndx = index">
-      <td>{{ndx+1}}</td>
-      <td>{{ team.team }}</td>
-      <td>{{ team.games }}</td>
-      <td>{{ team.wins }}</td>
-      <td>{{ team.lose }}</td>
-    </tr>
+
+<table mat-table [dataSource]="leaderboard" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="index">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="games">
+    <th mat-header-cell *matHeaderCellDef> Spiele </th>
+    <td mat-cell *matCellDef="let element"> {{element.games}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="wins">
+    <th mat-header-cell *matHeaderCellDef> Siege </th>
+    <td mat-cell *matCellDef="let element"> {{element.wins}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lose">
+    <th mat-header-cell *matHeaderCellDef> Niederlagen </th>
+    <td mat-cell *matCellDef="let element"> {{element.lose}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

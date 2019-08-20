@@ -1,0 +1,32 @@
+
+
+  <table mat-table [dataSource]="boulder" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="team">
+      <th mat-header-cell *matHeaderCellDef>Team</th>
+      <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="points">
+      <th mat-header-cell *matHeaderCellDef>Punkte</th>
+      <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="flash">
+      <th mat-header-cell *matHeaderCellDef>Flash</th>
+      <td mat-cell *matCellDef="let element"> {{element.flash}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="top">
+      <th mat-header-cell *matHeaderCellDef>Top</th>
+      <td mat-cell *matCellDef="let element"> {{element.top}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

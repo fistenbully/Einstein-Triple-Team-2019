@@ -29,6 +29,17 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
             return Ok(teams);
         }
 
+        [HttpGet("{teamId}")]
+        public async Task<IActionResult> GamesByTeamId(Guid teamId)
+        {
+            var para = new DynamicParameters();
+            para.Add("@TeamId", teamId);
+
+            var vbg = dbConnection.Query<VBG>("GetVolleyballGamesByTeam", para, commandType: CommandType.StoredProcedure);
+
+            return Ok(vbg.Select(v => new { v.Home, v.Guest, SetOne = $"{v.Set1PointsHome} : {v.Set1PointsGuest}", SetTwo = $"{v.Set2PointsHome} : {v.Set2PointsGuest}" }));
+        }
+
         [HttpGet("leaderboard")]
         public async Task<IActionResult> GetTabelle()
         {

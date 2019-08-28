@@ -20,6 +20,15 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
             this.dbConnection = dbConnection;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ByTeamId()
+        {
+            var vbg = dbConnection.Query("GetAllBoulder", commandType: CommandType.StoredProcedure);
+
+            return Ok(vbg);
+        }
+
+
         [HttpGet("{teamId}")]
         public async Task<IActionResult> ByTeamId(Guid teamId)
         {

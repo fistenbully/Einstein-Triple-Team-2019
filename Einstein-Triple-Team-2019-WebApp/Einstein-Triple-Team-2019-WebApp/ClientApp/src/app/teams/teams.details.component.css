@@ -7,6 +7,10 @@ table {
   table-layout: fixed;
 }
 
+.exp {
+  margin-bottom: 10px !important;
+}
+
 /*.mat-column-name {
   width: 10% !important;
 }

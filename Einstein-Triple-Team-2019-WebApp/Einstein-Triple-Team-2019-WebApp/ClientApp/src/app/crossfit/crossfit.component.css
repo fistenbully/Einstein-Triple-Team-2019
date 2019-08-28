@@ -1,0 +1,57 @@
+body {
+  min-width: '80%'
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.mat-column-index {
+  width: 5% !important;
+  text-align: center;
+}
+
+.mat-column-points {
+  width: 10% !important;
+  text-align: center;
+}
+
+.mat-column-flash {
+  width: 10% !important;
+  text-align: center;
+}
+
+.mat-column-top {
+  width: 10% !important;
+  text-align: center;
+}
+
+
+@media (max-width: 767px) {
+  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .mat-column-index {
+    width: 5% !important;
+    text-align: center;
+  }
+
+  .mat-column-points {
+    width: 10% !important;
+    text-align: center;
+  }
+
+  .mat-column-flash {
+    width: 10% !important;
+    text-align: center;
+  }
+
+  .mat-column-top {
+    width: 10% !important;
+    text-align: center;
+  }
+}

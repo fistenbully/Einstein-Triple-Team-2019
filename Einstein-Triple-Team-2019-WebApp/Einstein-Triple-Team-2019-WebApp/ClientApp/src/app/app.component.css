@@ -5,4 +5,12 @@
   }
 }
 
+.container {
+  background: #dcd9d2;
+  height: 90vh;
+  padding: 10px;
+}
 
+/*.header {
+  height:30vh;
+}*/

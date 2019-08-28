@@ -1,7 +1,7 @@
 <header>
-  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
+  <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3'>
     <div class="container">
-      <a class="navbar-brand" [routerLink]='["/teams"]'>Einstein Triple Team 2019</a>
+      <img [routerLink]='["/teams"]' src="http://www.boulderhalle-ulm.de/app/themes/einstein/images/logo.png"/>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation"
         [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
@@ -12,17 +12,24 @@
     <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
   </li>-->
           <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='["/teams"]'>Teams</a>
+            <a class="nav-link" [routerLink]='["/teams"]'>Teams</a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='["/volleyball"]'>Volleyball</a>
+            <a class="nav-link" [routerLink]='["/volleyball"]'>Volleyball</a>
           </li>
           <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='["/boulder"]'>Boulder</a>
+            <a class="nav-link" [routerLink]='["/boulder"]'>Boulder</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <a class="nav-link" [routerLink]='["/crossfit"]'>Crossfit</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <a class="nav-link" [routerLink]='["/admin"]'>Admin</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </header>
+
 

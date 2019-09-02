@@ -52,6 +52,7 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
             .Select(v => new { Team = v.Key, Points = v.Sum(l => l.Flash * 15 + l.Top * 10), Flash = v.Sum(l => l.Flash), Top = v.Sum(l => l.Top) })
             .OrderByDescending(v => v.Points)
             .ThenByDescending(v => v.Flash)
+            .Select((v, i) => new { v.Team, v.Flash, v.Top, v.Points, Place = i+1 })
             .ToList();
 
             return Ok(b);

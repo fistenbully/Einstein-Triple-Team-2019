@@ -56,6 +56,7 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
             .OrderByDescending(v => v.Wins)
             .ThenByDescending(v => v.OwnPoints)
             .ThenBy(v => v.OtherPoints)
+            .Select((v, i) => new { v.Team, v.Games, v.Wins, v.Lose, v.OwnPoints, v.OtherPoints, Place = i + 1 })
             .ToList();
 
             return Ok(tb);

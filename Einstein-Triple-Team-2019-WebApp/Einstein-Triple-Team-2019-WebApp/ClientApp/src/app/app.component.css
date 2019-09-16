@@ -3,12 +3,22 @@
   .body-content {
     padding-top: 50px;
   }
+
+  .container {
+    padding: 2px !important;
+  }
+
+  .mat-expansion-panel-body{
+    padding: 2px !important;
+  }
 }
 
 .container {
   background: #dcd9d2;
   height: 90vh;
   padding: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 /*.header {

@@ -44,13 +44,14 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
         public async Task<IActionResult> GetTabelle()
         {
             var vbg = dbConnection.Query<VBG>("GetVolleyBallGames", CommandType.StoredProcedure);
-
+            var sets = 2;
             var tb = vbg
             .SelectMany(v => new[]
             {
                 new { Team = v.Home, Games = 1, Wins = ((v.Set1PointsHome > v.Set1PointsGuest ? 1 : 0) + (v.Set2PointsHome > v.Set2PointsGuest ? 1 : 0)), Lose =((v.Set1PointsHome < v.Set1PointsGuest ? 1 : 0) + (v.Set2PointsHome < v.Set2PointsGuest ? 1 : 0)), OwnPoints = v.Set1PointsHome + v.Set2PointsHome, OtherPoints = v.Set1PointsGuest+v.Set2PointsGuest},
                 new{ Team = v.Guest, Games = 1, Wins = ((v.Set1PointsHome < v.Set1PointsGuest ? 1 : 0) + (v.Set2PointsHome < v.Set2PointsGuest ? 1 : 0)), Lose =((v.Set1PointsHome > v.Set1PointsGuest ? 1 : 0) + (v.Set2PointsHome > v.Set2PointsGuest ? 1 : 0)), OwnPoints = v.Set1PointsGuest + v.Set2PointsGuest, OtherPoints  = v.Set1PointsHome+v.Set2PointsHome}
             })
+            .Select(v => new { v.Team, v.Games, v.OtherPoints, v.OwnPoints, Wins = v.Wins != 0 ? v.Wins : sets - v.Lose, Lose = v.Lose != 0 ? v.Lose : sets - v.Wins })
             .GroupBy(v => v.Team)
             .Select(v => new { Team = v.Key, Games = v.Sum(l => l.Games), Wins = v.Sum(l => l.Wins), Lose = v.Sum(l => l.Lose), OwnPoints = v.Sum(l => l.OwnPoints), OtherPoints = v.Sum(l => l.OtherPoints) })
             .OrderByDescending(v => v.Wins)

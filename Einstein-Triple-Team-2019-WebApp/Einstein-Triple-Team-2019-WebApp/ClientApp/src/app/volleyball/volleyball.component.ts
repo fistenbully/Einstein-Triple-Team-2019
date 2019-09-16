@@ -1,6 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./volleyball.component.css']
 })
 export class VolleyballComponent implements AfterViewInit {
-
+  @ViewChild('TABLE') table: ElementRef;
   displayedColumns: string[] = ['index', 'name', 'games', 'wins', 'lose'];
   leaderboard: Array<VolleyballGame>;
 
   constructor(private http: HttpClient) { }
 
+  ExportTOExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'volleyball.xlsx');
+
+  }
 
 
   getTeams(): Observable<VolleyballGame[]> {

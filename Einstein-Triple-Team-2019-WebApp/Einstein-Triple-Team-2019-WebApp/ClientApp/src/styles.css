@@ -12,6 +12,10 @@ body {
   font-size:medium !important;
 }
 
+.exportToExcel {
+  margin:5px;
+}
+
 @media (max-width: 767px) {
   /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
 
@@ -33,5 +37,9 @@ body {
 
   .th.mat-header-cell{
     height: 40px !important;
+  }
+
+  .exportToExcel{
+    display: none;
   }
 }

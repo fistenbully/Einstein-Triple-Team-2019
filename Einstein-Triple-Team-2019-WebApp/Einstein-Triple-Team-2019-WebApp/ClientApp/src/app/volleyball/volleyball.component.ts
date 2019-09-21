@@ -9,12 +9,11 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./volleyball.component.css']
 })
 export class VolleyballComponent implements AfterViewInit {
-  @ViewChild('TABLE') table: ElementRef;
   displayedColumns: string[] = ['index', 'name', 'games', 'wins', 'lose'];
   leaderboard: Array<VolleyballGame>;
 
   constructor(private http: HttpClient) { }
-
+  @ViewChild('TABLE') table: ElementRef;
   ExportTOExcel() {
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();

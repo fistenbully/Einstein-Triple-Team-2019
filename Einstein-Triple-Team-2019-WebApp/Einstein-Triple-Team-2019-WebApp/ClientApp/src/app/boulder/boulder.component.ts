@@ -1,4 +1,5 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import * as XLSX from 'xlsx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -14,7 +15,16 @@ export class BoulderComponent implements AfterViewInit {
 
   constructor(private http: HttpClient) { }
 
+  @ViewChild('TABLE') table: ElementRef;
+  ExportTOExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
+    /* save to file */
+    XLSX.writeFile(wb, 'boulder.xlsx');
+
+  }
 
   getTeams(): Observable<Boulder[]> {
     let url = 'api/boulder/leaderboard';

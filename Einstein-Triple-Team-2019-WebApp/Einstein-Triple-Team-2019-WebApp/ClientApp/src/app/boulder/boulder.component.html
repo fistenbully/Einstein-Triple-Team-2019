@@ -1,7 +1,10 @@
 <h1>
   Boulder
 </h1>
-
+<div class="exportToExcel">
+  <button mat-raised-button color="primary" (click)="ExportTOExcel()">Export as Excel</button>
+</div>
+<div class="example-container mat-elevation-z8 " #TABLE>
   <table mat-table [dataSource]="boulder" class="mat-elevation-z8">
 
     <ng-container matColumnDef="index">
@@ -32,3 +35,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+</div>

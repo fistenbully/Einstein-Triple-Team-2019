@@ -1,7 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import * as XLSX from 'xlsx';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -74,6 +74,53 @@ export class CrossfitComponent implements AfterViewInit {
       console.log(err);
     });
   }
+
+
+  @ViewChild('TABLE') table: ElementRef;
+  ExportTOExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'crossfit.xlsx');
+
+  }
+
+  @ViewChild('TABLE1') table1: ElementRef;
+  ExportTOExcel1() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'wod1.xlsx');
+
+  }
+
+  @ViewChild('TABLE2') table2: ElementRef;
+  ExportTOExcel2() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'wod2.xlsx');
+
+  }
+
+  @ViewChild('TABLE3') table3: ElementRef;
+  ExportTOExcel3() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'wod3.xlsx');
+
+  }
+
+
 }
 
 export class leaderboad {

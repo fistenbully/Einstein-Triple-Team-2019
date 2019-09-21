@@ -30,6 +30,15 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
 
         }
 
+        private static int Sum(int s)
+        {
+            if(s == 0)
+            {
+                return 20;
+            }
+            return s;
+        }
+
         [HttpGet]
         public async Task<IActionResult> OverallResult()
             {
@@ -43,7 +52,7 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
             oa.AddRange(vb);
 
             var g = oa.GroupBy(o => o.Team)
-                .Select(o => new Overall { Team = o.Key, CF = o.Sum(oo => oo.CF), Boulder = o.Sum(oo => oo.Boulder), Volleyball = o.Sum(oo => oo.Volleyball), Score = o.Sum(oo => oo.CF) + o.Sum(oo => oo.Boulder) + o.Sum(oo => oo.Volleyball) } ).OrderBy(a => a.Score);
+                .Select(o => new Overall { Team = o.Key, CF =Sum(o.Sum(oo => oo.CF)), Boulder = Sum(o.Sum(oo => oo.Boulder)), Volleyball = Sum(o.Sum(oo => oo.Volleyball)), Score = Sum(o.Sum(oo => oo.CF))+ Sum(o.Sum(oo => oo.Boulder))+ Sum(o.Sum(oo => oo.Volleyball)) } ).OrderBy(a => a.Score);
 
 
             return Ok(g);

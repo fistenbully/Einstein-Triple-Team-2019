@@ -41,7 +41,7 @@ import { MatExpansionModule, MatTabsModule, MatSelectModule, MatInputModule, Mat
     FormsModule,
     MatTabsModule,
     RouterModule.forRoot([
-      { path: '', component: TeamsComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, pathMatch: 'full' },
       { path: 'crossfit', component: CrossfitComponent, pathMatch: 'full'},
       { path: 'teams', component: TeamsComponent, pathMatch: 'full' },

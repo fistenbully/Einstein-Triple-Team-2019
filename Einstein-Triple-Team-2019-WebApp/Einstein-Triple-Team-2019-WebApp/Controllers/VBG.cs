@@ -10,6 +10,9 @@
             public int Set2PointsHome { get; set; }
             public int Set1PointsGuest { get; set; }
             public int Set2PointsGuest { get; set; }
+
+            public double HomeSex { get; set; }
+            public double GuestSex { get; set; }
         }
 
     }

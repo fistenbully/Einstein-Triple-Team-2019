@@ -28,19 +28,19 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
 
             var team = dbConnection.Query("GetTeamById", param: para, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
-            var w1 = GetWods1();
+            var w1 = GetWods1(dbConnection);
             dynamic teamResult1 = w1.FirstOrDefault(w => ((dynamic)w).Name == team.Name);
 
-            var w2 = GetWods2();
+            var w2 = GetWods2(dbConnection);
             dynamic teamResult2 = w2.FirstOrDefault(w => ((dynamic)w).Name == team.Name);
 
-            var w3 = GetWods3();
+            var w3 = GetWods3(dbConnection);
             dynamic teamResult3 = w3.FirstOrDefault(w => ((dynamic)w).Name == team.Name);
 
             return Ok(new[] { teamResult1, teamResult2, teamResult3 });
         }
 
-        private IEnumerable<object> GetWods1()
+        private static IEnumerable<object> GetWods1(IDbConnection dbConnection)
         {
             var wod1 = dbConnection.Query("GetWod1", CommandType.StoredProcedure);
 
@@ -51,21 +51,21 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
     .SelectMany((w2, i) => w2.Select(w => new { w.Name, w.Reps, w.Score, w.SexMultiplier, Place = i + 1, w.Weight, Wod = "1" }));
         }
 
-        private IEnumerable<object> GetWods3()
+        private static IEnumerable<object> GetWods3(IDbConnection dbConnection)
         {
             var maxReps = 300;
             return dbConnection.Query("GetWod3", CommandType.StoredProcedure)
-        .Select(w => new { w.Name, w.Reps, w.SexMultiplier, Time = TimeSpan.FromTicks(w.Time), Score = w.Reps == 0 ? TimeSpan.FromTicks(w.Time) : TimeSpan.FromTicks(w.Time) + new TimeSpan(0, 0, 1 * (maxReps - w.Reps)) })
+        .Select(w => new { w.Name, w.Reps, w.SexMultiplier, Time = TimeSpan.FromTicks(w.Time), Score = w.Reps == 0 ? TimeSpan.FromTicks((long)(w.Time * w.SexMultiplier)) : TimeSpan.FromTicks((long)(w.Time * w.SexMultiplier)) + TimeSpan.FromTicks((long)((new TimeSpan(0, 0, (int)(1 * (maxReps - w.Reps)))).Ticks * w.SexMultiplier)) })
     .GroupBy(w => w.Score)
     .OrderBy(w => w.Key)
     .SelectMany((w2, i) => w2.Select(w => new { w.Name, w.Reps, w.Score, w.SexMultiplier, w.Time, Place = i + 1, Wod = "3" }));
         }
 
-        private IEnumerable<object> GetWods2()
+        private static IEnumerable<object> GetWods2(IDbConnection dbConnection)
         {
-            var maxReps = 450;
+            var maxReps = 395;
             return dbConnection.Query("GetWod2", CommandType.StoredProcedure)
-             .Select(w => new { w.Name, w.Reps, w.SexMultiplier, Time = TimeSpan.FromTicks(w.Time), Score = w.Reps == 0 ? TimeSpan.FromTicks(w.Time) : TimeSpan.FromTicks(w.Time) + new TimeSpan(0, 0, 1 * (maxReps - w.Reps)) })
+             .Select(w => new { w.Name, w.Reps, w.SexMultiplier, Time = TimeSpan.FromTicks(w.Time), Score = w.Reps == 0 ? TimeSpan.FromTicks((long)(w.Time* w.SexMultiplier)) : TimeSpan.FromTicks((long)(w.Time * w.SexMultiplier)) + TimeSpan.FromTicks((long)((new TimeSpan(0, 0, (int)(1 * (maxReps - w.Reps)))).Ticks * w.SexMultiplier)) })
         .GroupBy(w => w.Score)
     .OrderBy(w => w.Key)
     .SelectMany((w2, i) => w2.Select(w => new { w.Name, w.Reps, w.Score, w.SexMultiplier, w.Time, Place = i + 1, Wod = "2" }));
@@ -74,7 +74,7 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
         [HttpGet("wod3")]
         public async Task<IActionResult> GetWod3()
         {
-            var scoredTeam = GetWods3();
+            var scoredTeam = GetWods3(dbConnection);
 
             return Ok(scoredTeam);
         }
@@ -82,7 +82,7 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
         [HttpGet("wod2")]
         public async Task<IActionResult> GetWod2()
         {
-            var scoredTeam = GetWods2();
+            var scoredTeam = GetWods2(dbConnection);
 
             return Ok(scoredTeam);
         }
@@ -90,17 +90,16 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
         [HttpGet("wod1")]
         public async Task<IActionResult> GetWod1()
         {
-            var scoredTeam = GetWods1();
+            var scoredTeam = GetWods1(dbConnection);
 
             return Ok(scoredTeam);
         }
 
-        [HttpGet("leaderboard")]
-        public async Task<IActionResult> GetLeaderboard()
+        public static IEnumerable<object> CFLeaderBoard(IDbConnection dbConnection)
         {
-            var wod1 = GetWods1();
-            var wod2 = GetWods2();
-            var wod3 = GetWods3();
+            var wod1 = GetWods1(dbConnection);
+            var wod2 = GetWods2(dbConnection);
+            var wod3 = GetWods3(dbConnection);
 
             var wodList = new List<object>();
             wodList.AddRange(wod1.Select(w => new { ((dynamic)w).Name, ((dynamic)w).Place, ((dynamic)w).Score }));
@@ -113,7 +112,13 @@ namespace Einstein_Triple_Team_2019_WebApp.Controllers
             .OrderBy(g => g.Score)
             .Select((g, i) => new { g.Name, g.Details, g.Score, Place = i + 1 });
 
-            return Ok(gw);
+            return gw;
+        }
+
+        [HttpGet("leaderboard")]
+        public async Task<IActionResult> GetLeaderboard()
+        {
+            return Ok(CFLeaderBoard(dbConnection));
         }
     }
 }

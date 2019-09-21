@@ -9,7 +9,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./volleyball.component.css']
 })
 export class VolleyballComponent implements AfterViewInit {
-  displayedColumns: string[] = ['index', 'name', 'games', 'wins', 'lose'];
+  displayedColumns: string[] = ['place', 'name', 'games', 'score'];
   leaderboard: Array<VolleyballGame>;
 
   constructor(private http: HttpClient) { }
@@ -43,8 +43,9 @@ export class VolleyballComponent implements AfterViewInit {
 export interface VolleyballGame {
   team: string;
   games: number;
-  wins: number;
-  lose: number;
+  score: number;
   OwnPoints: number;
   OtherPoints: number;
+  place: number;
+
 }
